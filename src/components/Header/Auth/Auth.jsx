@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Auth.module.css';
+import PropTypes from 'prop-types';
 
 export const Auth = (props) => {
   const img = <svg className={style.svg} width="128" height="128"
@@ -27,4 +28,11 @@ export const Auth = (props) => {
       {props.auth ? props.auth : img}
     </button>
   );
+};
+
+Auth.propTypes = {
+  auth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
 };
