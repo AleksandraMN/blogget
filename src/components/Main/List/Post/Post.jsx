@@ -7,11 +7,11 @@ import AuthorRating from './AuthorRating';
 import TimePost from './TimePost';
 import ButtonDelete from './ButtonDelete';
 
-export const Post = ({postData}) => {
-  const {title, author, ups, date} = postData;
-  console.log('title, author, ups, date: ', title, author, ups, date);
+export const Post = ({postsData}) => {
+  const {title, author, ups, date} = postsData;
+  // console.log('title, author, ups, date: ', title, author, ups, date);
 
-  if (postData) {
+  if (postsData) {
     return (
       <li className={style.post}>
 
@@ -33,5 +33,5 @@ export const Post = ({postData}) => {
 };
 
 Post.propTypes = {
-  postData: PropTypes.object,
+  postsData: PropTypes.object,
 };
