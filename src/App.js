@@ -1,11 +1,12 @@
-import React from 'react';
 import Header from './components/Header';
 import Main from './components/Main';
+import {useToken} from './hocks/useToken';
 
 function App() {
+  const [token, delToken] = useToken('');
   return (
     <>
-      <Header />
+      <Header token={token} delToken={delToken} />
       <Main />
     </>
   );

@@ -60,6 +60,9 @@ Text.propTypes = {
   center: PropTypes.bool,
   ar: PropTypes.string,
   onClick: PropTypes.func,
-  bold: PropTypes.number,
+  bold: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   medium: PropTypes.number,
 };
