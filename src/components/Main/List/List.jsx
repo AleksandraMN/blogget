@@ -1,10 +1,29 @@
-import React from 'react';
+import {useContext} from 'react';
 import style from './List.module.css';
 import Post from './Post';
-
+import {postsContext} from '../../../context/postsContext';
+import PropTypes from 'prop-types';
 
 export const List = () => {
-  const postsData = [
+  const {getPosts} = useContext(postsContext);
+  console.log(getPosts);
+
+  return (
+    <ul className={style.list}>
+      {getPosts.map((item) => (
+        <Post key={getPosts[item].data.id}
+          postsData={getPosts[item].data} />
+      ))}
+    </ul>
+  );
+};
+
+List.propTypes = {
+  getPosts: PropTypes.array,
+  item: PropTypes.array,
+};
+
+/* const postsData = [
     {
       thumbnail: '',
       title: 'Title1',
@@ -37,14 +56,5 @@ export const List = () => {
       date: '2024-09-08T06:57:00.000Z',
       id: '79',
     },
-  ];
-
-  return (
-    <ul className={style.list}>
-      {postsData.map((postsData) => (
-        <Post key={postsData.id} postsData={postsData} />
-      ))}
-    </ul>
-  );
-};
+  ]; */
 

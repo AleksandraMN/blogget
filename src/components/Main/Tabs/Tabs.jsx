@@ -24,6 +24,7 @@ export const Tabs = () => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [nameMenu, setNameMenu] = useState('Главная');
 
+
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
       setIsDropdown(true);
@@ -32,8 +33,14 @@ export const Tabs = () => {
     }
   };
 
-  const handleChangeName = (id) => {
+  const handleChangeName = (id, a) => {
+    console.log(id);
     setNameMenu(id);
+    if (id === 'Лучшие') {
+      a = `/best`;
+      console.log(a);
+    }
+    return a;
   };
 
   useEffect(() => {
@@ -64,7 +71,7 @@ export const Tabs = () => {
         {LIST.map(({value, id, Icon}) => (
           <Text As='li' className={style.item} key={id} >
             <Text As='button' className={style.btn}
-              onClick={(e) => (handleChangeName(value))}>
+              onClick={(e) => (handleChangeName(value))} >
               {value}
               {Icon && <Icon width={30} height={30}/>}
             </Text>
@@ -79,4 +86,5 @@ Tabs.propTypes = {
   list: PropTypes.array,
   setList: PropTypes.func,
   addItem: PropTypes.func,
+  a: PropTypes.string,
 };

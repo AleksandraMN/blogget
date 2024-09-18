@@ -3,12 +3,16 @@ import style from './TimePost.module.css';
 import formatDate from '../../../../../utils/formatDate';
 import PropTypes from 'prop-types';
 
-export const TimePost = (props) => (
-  <time className={style.date} dateTime={props.date}>
-    {formatDate(props.date)}
-  </time>
-);
+export const TimePost = (props) => {
+  if (props.date) {
+    <time className={style.date} dateTime={props.date}>
+      {formatDate(props.date)}
+    </time>;
+  } else {
+    return null;
+  }
+};
 
 TimePost.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.func,
 };

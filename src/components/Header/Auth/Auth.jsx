@@ -1,21 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {URL_API} from '../../../api/const';
-import {useAuth} from '../../../hocks/useAuth';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
-export const Auth = ({token, delToken}) => {
+export const Auth = () => {
   const img =
     <Text As='a' className={style.authLink} href={urlAuth}>
       <LoginIcon className={style.svg} width={128} height={128}/>
     </Text>;
 
-  const [auth] = useAuth([], token, delToken, URL_API);
-  const {name, img2} = auth;
+  const {delToken} = useContext(tokenContext);
   const [openButton, setOpenButton] = useState(false);
+  const {auth} = useContext(authContext);
+  const {name, img2} = auth;
 
   return (
     <div className={style.container}>

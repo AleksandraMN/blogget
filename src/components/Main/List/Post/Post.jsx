@@ -9,29 +9,32 @@ import ButtonDelete from './ButtonDelete';
 
 export const Post = ({postsData}) => {
   const {title, author, ups, date} = postsData;
-  // console.log('title, author, ups, date: ', title, author, ups, date);
+  console.log({postsData});
+  console.log('title, author, ups, date: ', title, author, ups, date);
 
-  if (postsData) {
-    return (
-      <li className={style.post}>
+  return (
+    <li className={style.post}>
 
-        <AuthorPhoto />
+      <AuthorPhoto />
 
-        <AuthorData title={title} author={author} />
+      <AuthorData title={title} author={author} />
 
-        <AuthorRating ups={ups} />
+      <AuthorRating ups={ups} />
 
-        <TimePost date={date} />
+      <TimePost date={date} />
 
-        <ButtonDelete />
+      <ButtonDelete />
 
-      </li>
-    );
-  } else {
-    return <h1>Loading</h1>;
-  }
+    </li>
+  );
 };
 
 Post.propTypes = {
-  postsData: PropTypes.object,
+  postsData: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.number,
+    PropTypes.func,
+  ]),
 };
