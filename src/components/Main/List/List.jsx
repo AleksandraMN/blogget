@@ -5,22 +5,29 @@ import {postsContext} from '../../../context/postsContext';
 import PropTypes from 'prop-types';
 
 export const List = () => {
-  const {getPosts} = useContext(postsContext);
+  const getPosts = useContext(postsContext);
   console.log(getPosts);
 
-  return (
-    <ul className={style.list}>
-      {getPosts.map((item) => (
-        <Post key={getPosts[item].data.id}
-          postsData={getPosts[item].data} />
-      ))}
-    </ul>
-  );
+  if (getPosts) {
+    return (
+      <ul className={style.list}>
+        {getPosts.map((item) => (
+          <Post key={item.id}
+            postsData={item} />
+        ))}
+      </ul>
+    );
+  } else return null;
 };
 
 List.propTypes = {
-  getPosts: PropTypes.array,
+  map: PropTypes.func,
+  getPosts: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   item: PropTypes.array,
+  length: PropTypes.number,
 };
 
 /* const postsData = [

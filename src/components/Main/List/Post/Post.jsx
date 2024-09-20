@@ -8,16 +8,24 @@ import TimePost from './TimePost';
 import ButtonDelete from './ButtonDelete';
 
 export const Post = ({postsData}) => {
-  const {title, author, ups, date} = postsData;
+  const {
+    thumbnail,
+    title,
+    author,
+    ups,
+    selftext: markdown,
+    created: date,
+  } = postsData;
+
   console.log({postsData});
   console.log('title, author, ups, date: ', title, author, ups, date);
 
   return (
     <li className={style.post}>
 
-      <AuthorPhoto />
+      <AuthorPhoto thumbnail={thumbnail} />
 
-      <AuthorData title={title} author={author} />
+      <AuthorData title={title} author={author} markdown={markdown} />
 
       <AuthorRating ups={ups} />
 

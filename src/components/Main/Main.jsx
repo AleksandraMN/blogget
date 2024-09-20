@@ -4,12 +4,11 @@ import Tabs from './Tabs';
 import List from './List';
 import {PostsContextProvider} from '../../context/postsContext';
 
-
 export const Main = () => (
   <main className={style.main}>
     <Layout >
-      <Tabs />
       <PostsContextProvider>
+        <Tabs />
         <List />
       </PostsContextProvider>
     </Layout>

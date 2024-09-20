@@ -2,17 +2,14 @@ import {useState, useEffect, useContext} from 'react';
 import {tokenContext} from '../context/tokenContext';
 import {URL_API} from '../api/const';
 
-export const useGetPosts = () => {
-  const [getPosts, setGetPosts] = useState({});
+export const useGetPosts = (nameMenu) => {
+  const [getPosts, setGetPosts] = useState([]);
   const {token, delToken} = useContext(tokenContext);
-
+  const posts = [];
   useEffect(() => {
-    if (!token) {
-      return;
-    }
-
-    const getPost = async () => {
-      await fetch(`${URL_API}/best`, {
+    const getPost = async (token) => {
+      await fetch(`${URL_API}/best?limit=10`, {
+        method: 'GET',
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -25,18 +22,41 @@ export const useGetPosts = () => {
         })
         .then(data => {
           console.log(data.data.children);
-          setGetPosts(data.data.children);
+          data.data.children.forEach((child) => {
+            posts.push({
+              thumbnail: child.data.thumbnail,
+              title: child.data.title,
+              ups: child.data.ups,
+              selftext: child.data.selftext,
+              date: child.data.created,
+              author: child.data.author,
+              id: child.data.id,
+              parent_id: child.data.parent_id,
+            });
+          });
+          if (posts) {
+            setGetPosts(posts);
+          }
+          console.log(getPosts);
         })
         .catch((error) => {
           console.error(error);
           delToken();
-          setGetPosts({});
+          setGetPosts([]);
         });
     };
 
-    getPost();
-  }, [token]);
+    if (nameMenu === 'Лучшие') {
+      getPost(token);
+    }
+  }, [nameMenu]);
 
+  function clearPost() {
+    setGetPosts([]);
+  }
 
-  return {getPosts};
+  if (getPosts) {
+    console.log(getPosts);
+    return [getPosts, clearPost];
+  }
 };

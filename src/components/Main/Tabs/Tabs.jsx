@@ -10,6 +10,7 @@ import {ReactComponent as TopIcon} from './img/top.svg';
 import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {debounceRaf} from '../../../utils/debounce';
+import {useGetPosts} from '../../../hocks/useGetPosts';
 
 const LIST = [
   {value: 'Главная', Icon: HomeIcon},
@@ -18,12 +19,11 @@ const LIST = [
   {value: 'Горячие', Icon: HotIcon},
 ].map(assignId);
 
-
 export const Tabs = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdown, setIsDropdown] = useState(true);
   const [nameMenu, setNameMenu] = useState('Главная');
-
+  const [getPosts] = useGetPosts(nameMenu);
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -31,16 +31,6 @@ export const Tabs = () => {
     } else {
       setIsDropdown(false);
     }
-  };
-
-  const handleChangeName = (id, a) => {
-    console.log(id);
-    setNameMenu(id);
-    if (id === 'Лучшие') {
-      a = `/best`;
-      console.log(a);
-    }
-    return a;
   };
 
   useEffect(() => {
@@ -52,11 +42,17 @@ export const Tabs = () => {
     };
   }, []);
 
+  const handleChange = (value) => {
+    getPosts;
+    console.log(value);
+    setNameMenu(value);
+  };
+
   return (
     <Text As='div' className={style.container}>
       {isDropdown && (<Text As='div' className={style.wrapperBtn}>
         <Text As='button' className={style.btn}
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          onClick={() => (setIsDropdownOpen(!isDropdownOpen))}
         >
           {nameMenu}
           <ArrowIcon width={15} height={15}/>
@@ -69,9 +65,9 @@ export const Tabs = () => {
         onClick={() => setIsDropdownOpen(false)}
       >
         {LIST.map(({value, id, Icon}) => (
-          <Text As='li' className={style.item} key={id} >
+          <Text As='li' className={style.item} key={value} >
             <Text As='button' className={style.btn}
-              onClick={(e) => (handleChangeName(value))} >
+              onClick={() => handleChange(value)}>
               {value}
               {Icon && <Icon width={30} height={30}/>}
             </Text>
@@ -85,6 +81,6 @@ export const Tabs = () => {
 Tabs.propTypes = {
   list: PropTypes.array,
   setList: PropTypes.func,
-  addItem: PropTypes.func,
-  a: PropTypes.string,
+  clearPost: PropTypes.func,
+  map: PropTypes.func,
 };

@@ -1,41 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from './AuthorData.module.css';
 import PropTypes from 'prop-types';
 import {Text} from '../../../../../UI/Text';
+import Modal from '../../../../Modal';
 
-export const AuthorData = (props) => {
-  if (props.title || props.author) {
-    return (
-      <div className={style.content}>
-        <Text As='h2' className={style.title}>
-          <Text
-            As='a'
-            size={18}
-            tsize={24}
-            className={style.linkPost}
-            href='#post'
-          >
-            {props.title}
-          </Text>
-        </Text>
+export const AuthorData = ({title, author, markdown}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <div className={style.content}>
+      <Text As='h2' className={style.title}>
         <Text
           As='a'
-          size={12}
-          tsize={14}
-          color='orange'
-          className={style.linkAuthor}
-          href='#author'
+          size={14}
+          tsize={22}
+          className={style.linkPost}
+          href='#post'
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
         >
-          {props.author}
+          {title}
         </Text>
-      </div>
-    );
-  } else {
-    return null;
-  }
+      </Text>
+      <Text
+        As='a'
+        size={12}
+        tsize={14}
+        color='orange'
+        className={style.linkAuthor}
+        href='#author'
+      >
+        {author}
+      </Text>
+      {isModalOpen && <Modal title={title}
+        author={author} markdown={markdown} />}
+    </div>
+  );
 };
 
 AuthorData.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
+  markdown: PropTypes.string,
 };
