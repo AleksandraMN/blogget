@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useGetPosts} from '../hocks/useGetPosts';
+import {usePostData} from '../hocks/useGetPosts';
 
 export const postsContext = React.createContext({});
 
 export const PostsContextProvider = ({children}) => {
-  const [getPosts] = useGetPosts();
-  console.log(getPosts);
+  const getPosts = usePostData();
 
   return (
     <postsContext.Provider value={getPosts}>
@@ -17,8 +16,4 @@ export const PostsContextProvider = ({children}) => {
 
 PostsContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  getPosts: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-  ]),
 };

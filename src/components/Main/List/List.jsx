@@ -1,33 +1,30 @@
-import {useContext} from 'react';
+
 import style from './List.module.css';
 import Post from './Post';
-import {postsContext} from '../../../context/postsContext';
+// import {postsContext} from '../../../context/postsContext';
 import PropTypes from 'prop-types';
+import {usePostData} from '../../../hocks/useGetPosts';
 
 export const List = () => {
-  const getPosts = useContext(postsContext);
-  console.log(getPosts);
-
-  if (getPosts) {
-    return (
-      <ul className={style.list}>
-        {getPosts.map((item) => (
-          <Post key={item.id}
-            postsData={item} />
-        ))}
-      </ul>
-    );
-  } else return null;
+  const getPosts = usePostData();
+  return (
+    <ul className={style.list}>
+      {getPosts.map(({data}) => (
+        <Post key={data.id}
+          postsData={data} />
+      ))}
+    </ul>
+  );
 };
 
 List.propTypes = {
-  map: PropTypes.func,
+  // map: PropTypes.func,
   getPosts: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
   ]),
-  item: PropTypes.array,
-  length: PropTypes.number,
+  data: PropTypes.object,
+  id: PropTypes.number,
 };
 
 /* const postsData = [
@@ -64,4 +61,3 @@ List.propTypes = {
       id: '79',
     },
   ]; */
-

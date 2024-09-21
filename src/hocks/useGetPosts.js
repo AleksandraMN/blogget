@@ -1,62 +1,33 @@
-import {useState, useEffect, useContext} from 'react';
-import {tokenContext} from '../context/tokenContext';
 import {URL_API} from '../api/const';
+import {useEffect, useState} from 'react';
+import {useToken} from './useToken';
 
-export const useGetPosts = (nameMenu) => {
-  const [getPosts, setGetPosts] = useState([]);
-  const {token, delToken} = useContext(tokenContext);
-  const posts = [];
+export const usePostData = () => {
+  const [token, delToken] = useToken();
+  const [postsData, setPostData] = useState([]);
+
   useEffect(() => {
-    const getPost = async (token) => {
-      await fetch(`${URL_API}/best?limit=10`, {
-        method: 'GET',
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
+    if (!token) return;
+
+    fetch(`${URL_API}/best?limit=10`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (response.status === 401) {
-            throw new Error(response.status);
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log(data.data.children);
-          data.data.children.forEach((child) => {
-            posts.push({
-              thumbnail: child.data.thumbnail,
-              title: child.data.title,
-              ups: child.data.ups,
-              selftext: child.data.selftext,
-              date: child.data.created,
-              author: child.data.author,
-              id: child.data.id,
-              parent_id: child.data.parent_id,
-            });
-          });
-          if (posts) {
-            setGetPosts(posts);
-          }
-          console.log(getPosts);
-        })
-        .catch((error) => {
-          console.error(error);
-          delToken();
-          setGetPosts([]);
-        });
-    };
-
-    if (nameMenu === 'Лучшие') {
-      getPost(token);
-    }
-  }, [nameMenu]);
-
-  function clearPost() {
-    setGetPosts([]);
-  }
-
-  if (getPosts) {
-    console.log(getPosts);
-    return [getPosts, clearPost];
-  }
+      .then(({data}) => {
+        const postsData = data.children;
+        setPostData(postsData);
+      })
+      .catch(err => {
+        console.error(err);
+        delToken();
+      });
+  }, [token]);
+  return postsData;
 };

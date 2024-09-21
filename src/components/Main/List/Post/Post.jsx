@@ -17,8 +17,9 @@ export const Post = ({postsData}) => {
     created: date,
   } = postsData;
 
-  console.log({postsData});
-  console.log('title, author, ups, date: ', title, author, ups, date);
+  // console.log({postsData});
+  // console.log('title, author, ups, date, thumbnail, markdown: ',
+  //  title, author, ups, date, thumbnail, markdown);
 
   return (
     <li className={style.post}>
@@ -41,8 +42,5 @@ Post.propTypes = {
   postsData: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
-    PropTypes.array,
-    PropTypes.number,
-    PropTypes.func,
   ]),
 };

@@ -10,7 +10,7 @@ import {ReactComponent as TopIcon} from './img/top.svg';
 import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {debounceRaf} from '../../../utils/debounce';
-import {useGetPosts} from '../../../hocks/useGetPosts';
+import {usePostData} from '../../../hocks/useGetPosts';
 
 const LIST = [
   {value: 'Главная', Icon: HomeIcon},
@@ -23,7 +23,8 @@ export const Tabs = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdown, setIsDropdown] = useState(true);
   const [nameMenu, setNameMenu] = useState('Главная');
-  const [getPosts] = useGetPosts(nameMenu);
+  const getPosts = usePostData(nameMenu);
+  console.log(`getPostsInTabs`, getPosts);
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -43,7 +44,6 @@ export const Tabs = () => {
   }, []);
 
   const handleChange = (value) => {
-    getPosts;
     console.log(value);
     setNameMenu(value);
   };
@@ -81,6 +81,4 @@ export const Tabs = () => {
 Tabs.propTypes = {
   list: PropTypes.array,
   setList: PropTypes.func,
-  clearPost: PropTypes.func,
-  map: PropTypes.func,
 };
