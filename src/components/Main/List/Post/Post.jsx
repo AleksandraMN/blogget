@@ -15,18 +15,19 @@ export const Post = ({postsData}) => {
     ups,
     selftext: markdown,
     created: date,
+    id,
   } = postsData;
 
   // console.log({postsData});
-  // console.log('title, author, ups, date, thumbnail, markdown: ',
-  //  title, author, ups, date, thumbnail, markdown);
+  // mconsole.log('title, author, ups, date, thumbnail, markdown, id: ',
+  //  title, author, ups, date, thumbnail, markdown, id);
 
   return (
     <li className={style.post}>
 
       <AuthorPhoto thumbnail={thumbnail} />
 
-      <AuthorData title={title} author={author} markdown={markdown} />
+      <AuthorData title={title} author={author} markdown={markdown} id={id}/>
 
       <AuthorRating ups={ups} />
 

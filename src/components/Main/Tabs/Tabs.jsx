@@ -44,7 +44,6 @@ export const Tabs = () => {
   }, []);
 
   const handleChange = (value) => {
-    console.log(value);
     setNameMenu(value);
   };
 
@@ -65,9 +64,9 @@ export const Tabs = () => {
         onClick={() => setIsDropdownOpen(false)}
       >
         {LIST.map(({value, id, Icon}) => (
-          <Text As='li' className={style.item} key={value} >
+          <Text As='li' className={style.item} key={id} >
             <Text As='button' className={style.btn}
-              onClick={() => handleChange(value)}>
+              onClick={(e) => handleChange(value)}>
               {value}
               {Icon && <Icon width={30} height={30}/>}
             </Text>
