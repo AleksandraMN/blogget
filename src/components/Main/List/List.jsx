@@ -5,6 +5,7 @@ import Post from './Post';
 import PropTypes from 'prop-types';
 import {usePostData} from '../../../hocks/useGetPosts';
 
+
 export const List = () => {
   const getPosts = usePostData();
   return (
@@ -18,7 +19,6 @@ export const List = () => {
 };
 
 List.propTypes = {
-  // map: PropTypes.func,
   getPosts: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,

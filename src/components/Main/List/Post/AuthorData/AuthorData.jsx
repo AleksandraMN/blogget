@@ -5,6 +5,7 @@ import {Text} from '../../../../../UI/Text';
 import Modal from '../../../../Modal';
 
 export const AuthorData = ({title, author, markdown, id}) => {
+  const idPost = id;
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={style.content}>
@@ -32,8 +33,8 @@ export const AuthorData = ({title, author, markdown, id}) => {
       >
         {author}
       </Text>
-      {isModalOpen && (
-        <Modal id={id}
+      {(isModalOpen) && (
+        <Modal id={idPost}
           closeModal={() => setIsModalOpen(false)}
         />)}
     </div>

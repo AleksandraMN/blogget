@@ -3,13 +3,13 @@ import {useEffect, useState} from 'react';
 import {useToken} from './useToken';
 
 export const useCommentsData = (id) => {
-  const [token, delToken] = useToken();
+  const [token] = useToken();
   const [commentsData, setCommentsData] = useState([]);
 
-
   useEffect(() => {
-    fetch(`${URL_API}/comments/${id}?sort=top`, {
-      method: 'GET',
+    if (!token) return setCommentsData([]);
+
+    fetch(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -20,33 +20,25 @@ export const useCommentsData = (id) => {
         }
         return response.json();
       })
-      .then((children) => {
-        console.log(children);
-        children.map(item => item.data);
-        setCommentsData(commentsData);
-        console.log(commentsData);
-      },
-      )
+      .then(([
+        {
+          data: {
+            children: [{data: post}],
+          },
+        },
+        {
+          data: {
+            children,
+          },
+        },
+      ]) => {
+        const comments = children.map(item => item.data);
+        setCommentsData([post, comments]);
+      })
       .catch(err => {
         console.error(err);
-        delToken();
       });
-  }, [id]);
-  console.log(commentsData);
-  return {commentsData};
+  }, [id, token]);
+  return commentsData;
 };
 
-
-/*
-[
-  {
-    data: {
-      children: [{data: post}],
-    },
-  },
-  {
-    data: {
-      children,
-    },
-  },
-] */

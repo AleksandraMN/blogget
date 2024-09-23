@@ -4,7 +4,7 @@
    z-index: 99;
    background-color: rgba(0, 0, 0, 0.6);
 }
-
+ 
 .modal {
    position: absolute;
    left: 50%;
@@ -16,29 +16,29 @@
    border-radius: 16px;
    margin-bottom: 10px;
 }
-
+ 
 .title {
    margin-bottom: 30px;
    padding-right: 50px;
 }
-
+ 
 .author {
    margin-bottom: 20px;
 }
-
+ 
 .content p {
    margin-bottom: 20px;
    font-size: 14px;
 }
-
+ 
 .content p:last-child {
    margin-bottom: 0;
 }
-
+ 
 .content a {
    color: var(--orange);
 }
-
+ 
 .close {
    position: absolute;
    top: 15px;
@@ -70,8 +70,8 @@
 }
  
 @media (min-width: 1024px) {
-  .modal {
-   padding: 50px;
-   inset: 15%;
-  }
+   .modal {
+     padding: 50px;
+     inset: 15%;
+   }
 }

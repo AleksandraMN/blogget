@@ -7,16 +7,18 @@ import ReactDOM from 'react-dom';
 import {useCommentsData} from '../../hocks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
-
+import AuthorPhoto from '../Main/List/Post/AuthorPhoto';
+import AuthorRating from '../Main/List/Post/AuthorRating';
+import TimePost from '../Main/List/Post/TimePost';
 
 export const Modal = ({id, closeModal}) => {
-  const overlayRef = useRef(null);
-  const {commentsData} = useCommentsData(id);
+  const commentsData = useCommentsData(id);
   const [post, comments] = commentsData;
-  console.log(commentsData);
+  // console.log('comments: ', comments);
+  // console.log('post: ', post);
+  const overlayRef = useRef(null);
 
-
-  const handleClick = e => {
+  const handlerClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
       closeModal();
@@ -24,50 +26,40 @@ export const Modal = ({id, closeModal}) => {
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClick);
+    document.addEventListener('click', handlerClick);
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('click', handlerClick);
     };
   }, []);
 
-  const handleKeyup = (e) => {
+  const handlerKeyup = (e) => {
     if (e.key === 'Escape') {
       closeModal();
     }
   };
 
   useEffect(() => {
-    document.addEventListener('keyup', handleKeyup);
+    document.addEventListener('keyup', handlerKeyup);
     return () => {
-      document.removeEventListener('keyup', handleKeyup);
+      document.removeEventListener('keyup', handlerKeyup);
     };
   }, []);
 
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-
-        <h2 className={style.title}>{post.title}</h2>
-
-        <div className={style.content}>
-          {/*  <Markdown options={{
-            overrides: {
-              a: {
-                props: {
-                  target: '_blank',
-                }
-              }
-            },
-          }}>
-            {post.markdown}
-          </Markdown> */}
-        </div>
-
-        <p className={style.author}>{post.author}</p>
-
-        <FormComment/>
-
-        <Comments comments={comments} />
+        {post ? (
+          <>
+            <AuthorPhoto thumbnail={post.thumbnail} />
+            <h2 className={style.title}>{post.title}</h2>
+            <p className={style.author}>{post.author}</p>
+            <AuthorRating ups={post.ups} />
+            <TimePost date={post.created} />
+            <FormComment/>
+            <Comments comments={comments} />
+          </>
+        ) :
+        <h2>Загрузка...</h2>}
 
         <button className={style.close} onClick={closeModal}>
           <CloseIcon />
@@ -86,3 +78,4 @@ Modal.propTypes = {
   comments: PropTypes.object,
   post: PropTypes.object,
 };
+

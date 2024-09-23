@@ -5,26 +5,31 @@ import PropTypes from 'prop-types';
 import {Text} from '../../../UI/Text';
 
 
-export const Comments = (props) =>
-  // console.log(style);
-  (
-    <ul className={style.list}>
-      <li className={style.item}>
-        <Text As='h3'
-          className={style.author} size={18} tsize={22}>{props.author}</Text>
-        <Text As='p'
-          className={style.comment} size={14} tsize={18}>{props.body}</Text>
-        <TimePost date={props.date} />
-      </li>
-    </ul>
-  )
-;
+export const Comments = ({comments}) => {
+  if (comments) {
+    return (
+      <ul className={style.list}>
+        {comments.map((data) => (
+          <li key={data.id} className={style.item}>
+            <Text As='h3'
+              className={style.author} size={18} tsize={22}>{data.author}</Text>
+            <Text As='p'
+              className={style.comment} size={14} tsize={18}>{data.body}</Text>
+            <TimePost date={data.created} />
+          </li>
+        ))}
+      </ul>
+    );
+  } else return <h2>Нет комментариев</h2>;
+};
 
 Comments.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
   markdown: PropTypes.string,
   tsize: PropTypes.number,
-  date: PropTypes.string,
+  created: PropTypes.number,
   body: PropTypes.string,
+  map: PropTypes.func,
+  comments: PropTypes.array,
 };

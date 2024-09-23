@@ -8,6 +8,7 @@ export const FormComment = () => {
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(textareaRef.current.value);
+    textareaRef.current.value = '';
   };
 
   return (
