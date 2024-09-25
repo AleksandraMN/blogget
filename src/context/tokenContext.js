@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import PropTypes from 'prop-types';
 import {useToken} from '../hocks/useToken';
 
@@ -18,3 +18,4 @@ export const TokenContextProvider = ({children}) => {
 TokenContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+ */

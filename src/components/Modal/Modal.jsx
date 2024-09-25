@@ -7,9 +7,10 @@ import ReactDOM from 'react-dom';
 import {useCommentsData} from '../../hocks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
-import AuthorPhoto from '../Main/List/Post/AuthorPhoto';
+// import AuthorPhoto from '../Main/List/Post/AuthorPhoto';
 import AuthorRating from '../Main/List/Post/AuthorRating';
 import TimePost from '../Main/List/Post/TimePost';
+
 
 export const Modal = ({id, closeModal}) => {
   const commentsData = useCommentsData(id);
@@ -45,14 +46,19 @@ export const Modal = ({id, closeModal}) => {
     };
   }, []);
 
+
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
         {post ? (
           <>
-            <AuthorPhoto thumbnail={post.thumbnail} />
-            <h2 className={style.title}>{post.title}</h2>
-            <p className={style.author}>{post.author}</p>
+            {/* <AuthorPhoto thumbnail={post.thumbnail} /> */}
+            <h2 className={style.title}>
+              {post.title}
+            </h2>
+            <p className={style.author}>
+              {post.author}
+            </p>
             <AuthorRating ups={post.ups} />
             <TimePost date={post.created} />
             <FormComment/>
@@ -73,7 +79,7 @@ export const Modal = ({id, closeModal}) => {
 Modal.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
-  markdown: PropTypes.string,
+  selftext: PropTypes.string,
   closeModal: PropTypes.func,
   comments: PropTypes.object,
   post: PropTypes.object,

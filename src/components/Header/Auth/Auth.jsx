@@ -4,19 +4,34 @@ import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {tokenContext} from '../../../context/tokenContext';
 import {authContext} from '../../../context/authContext';
+import {deleteToken} from '../../../store/index.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateToken} from '../../../store/index.js';
+
 
 export const Auth = () => {
-  const img =
-    <Text As='a' className={style.authLink} href={urlAuth}>
-      <LoginIcon className={style.svg} width={128} height={128}/>
-    </Text>;
-
-  const {delToken} = useContext(tokenContext);
+  const token = useSelector(state => state.token);
+  // console.log(token);
+  const dispatch = useDispatch();
   const [openButton, setOpenButton] = useState(false);
   const {auth} = useContext(authContext);
   const {name, img2} = auth;
+
+
+  const handleAuthClick = (e) => {
+    dispatch(updateToken(token));
+  };
+
+  const handleClick = (e) => {
+    dispatch(deleteToken(''));
+  };
+
+  const img =
+  <Text As='a'
+    className={style.authLink} href={urlAuth} onClick={handleAuthClick}>
+    <LoginIcon className={style.svg} width={128} height={128}/>
+  </Text>;
 
   return (
     <div className={style.container}>
@@ -40,7 +55,7 @@ export const Auth = () => {
             tsize={14}
             dsize={14}
             size={8}
-            onClick={delToken}
+            onClick={handleClick}
           >
             {'Выйти'}
           </Text>}

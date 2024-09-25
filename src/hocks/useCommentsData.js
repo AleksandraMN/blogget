@@ -1,9 +1,11 @@
 import {URL_API} from '../api/const';
 import {useEffect, useState} from 'react';
-import {useToken} from './useToken';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteToken} from '../store';
 
 export const useCommentsData = (id) => {
-  const [token] = useToken();
+  const token = useSelector(state => state.token);
+  const dispatch = useDispatch();
   const [commentsData, setCommentsData] = useState([]);
 
   useEffect(() => {
@@ -37,8 +39,10 @@ export const useCommentsData = (id) => {
       })
       .catch(err => {
         console.error(err);
+        dispatch(deleteToken(''));
       });
   }, [id, token]);
+
   return commentsData;
 };
 
