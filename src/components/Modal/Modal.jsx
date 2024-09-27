@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import style from './Modal.module.css';
 import {ReactComponent as CloseIcon} from './img/close.svg';
 import PropTypes from 'prop-types';
@@ -7,17 +7,32 @@ import ReactDOM from 'react-dom';
 import {useCommentsData} from '../../hocks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
-// import AuthorPhoto from '../Main/List/Post/AuthorPhoto';
 import AuthorRating from '../Main/List/Post/AuthorRating';
 import TimePost from '../Main/List/Post/TimePost';
+import AuthLoader from '../../UI/AuthLoader';
 
 
 export const Modal = ({id, closeModal}) => {
-  const commentsData = useCommentsData(id);
+  const [commentsData, loading, error] = useCommentsData(id);
+  const [status, setStatus] = useState('');
   const [post, comments] = commentsData;
-  // console.log('comments: ', comments);
-  // console.log('post: ', post);
   const overlayRef = useRef(null);
+
+  // console.log('loading: ', loading);
+  // console.log('commentsData: ', commentsData);
+
+  useEffect(() => {
+    if (loading === true) {
+      setStatus('loading');
+    }
+    if (error !== '') {
+      setStatus('error');
+    }
+    if (post) {
+      setStatus('loaded');
+    }
+  }, [error, post, loading]);
+
 
   const handlerClick = e => {
     const target = e.target;
@@ -50,9 +65,10 @@ export const Modal = ({id, closeModal}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        {post ? (
+        {status === 'loading' && <AuthLoader />}
+        {status === 'error' && 'ошибка'}
+        {status === 'loaded' && (
           <>
-            {/* <AuthorPhoto thumbnail={post.thumbnail} /> */}
             <h2 className={style.title}>
               {post.title}
             </h2>
@@ -64,8 +80,7 @@ export const Modal = ({id, closeModal}) => {
             <FormComment/>
             <Comments comments={comments} />
           </>
-        ) :
-        <h2>Загрузка...</h2>}
+        )}
 
         <button className={style.close} onClick={closeModal}>
           <CloseIcon />

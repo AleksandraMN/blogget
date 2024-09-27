@@ -35,44 +35,43 @@ export const Tabs = () => {
   };
 
   useEffect(() => {
-    const debounseResize = debounceRaf(handleResize);
-    debounseResize();
-    window.addEventListener('resize', debounseResize);
+    const debounceResize = debounceRaf(handleResize);
+    debounceResize();
+    window.addEventListener('resize', debounceResize);
     return () => {
-      window.removeEventListener('resize', debounseResize);
+      window.removeEventListener('resize', debounceResize);
     };
   }, []);
 
-  const handleChange = (value) => {
-    setNameMenu(value);
-  };
 
   return (
     <Text As='div' className={style.container}>
-      {isDropdown && (<Text As='div' className={style.wrapperBtn}>
-        <Text As='button' className={style.btn}
-          onClick={() => (setIsDropdownOpen(!isDropdownOpen))}
-        >
-          {nameMenu}
-          <ArrowIcon width={15} height={15}/>
+      {isDropdown && (
+        <Text As='div' className={style.wrapperBtn}>
+          <Text As='button' className={style.btn}
+            onClick={() => (setIsDropdownOpen(!isDropdownOpen))}
+          >
+            {nameMenu}
+            <ArrowIcon width={15} height={15}/>
+          </Text>
         </Text>
-      </Text>
       )}
 
-      {(isDropdownOpen || !isDropdown) &&
-      <Text As='ul' className={style.list}
-        onClick={() => setIsDropdownOpen(false)}
-      >
-        {LIST.map(({value, id, Icon}) => (
-          <Text As='li' className={style.item} key={id} >
-            <Text As='button' className={style.btn}
-              onClick={(e) => handleChange(value)}>
-              {value}
-              {Icon && <Icon width={30} height={30}/>}
+      {(isDropdownOpen || !isDropdown) && (
+        <Text As='ul' className={style.list}
+          onClick={() => setIsDropdownOpen(false)}
+        >
+          {LIST.map(({value, id, Icon}) => (
+            <Text As='li' className={style.item} key={id} >
+              <Text As='button' className={style.btn}
+                onClick={() => setNameMenu(value)}>
+                {value}
+                {Icon && <Icon width={30} height={30}/>}
+              </Text>
             </Text>
-          </Text>
-        ))}
-      </Text>}
+          ))}
+        </Text>
+      )}
     </Text>
   );
 };

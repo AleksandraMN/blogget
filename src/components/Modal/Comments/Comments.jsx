@@ -6,6 +6,7 @@ import {Text} from '../../../UI/Text';
 
 
 export const Comments = ({comments}) => {
+  // console.log(comments);
   if (comments) {
     return (
       <ul className={style.list}>

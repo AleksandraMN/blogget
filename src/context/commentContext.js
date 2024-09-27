@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -17,3 +17,4 @@ export const CommentContextProvider = ({children}) => {
 CommentContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+ */

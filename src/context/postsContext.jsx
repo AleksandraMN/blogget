@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import PropTypes from 'prop-types';
 import {usePostData} from '../hocks/useGetPosts';
 
@@ -17,3 +17,4 @@ export const PostsContextProvider = ({children}) => {
 PostsContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+ */

@@ -1,41 +1,41 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {authContext} from '../../../context/authContext';
-import {deleteToken} from '../../../store/index.js';
-import {useDispatch, useSelector} from 'react-redux';
-import {updateToken} from '../../../store/index.js';
-
+import {deleteToken} from '../../../store/tokenReducer.js';
+import {useDispatch} from 'react-redux';
+import {useAuth} from '../../../hocks/useAuth.js';
+import AuthLoader from '../../../UI/AuthLoader';
 
 export const Auth = () => {
-  const token = useSelector(state => state.token);
-  // console.log(token);
   const dispatch = useDispatch();
   const [openButton, setOpenButton] = useState(false);
-  const {auth} = useContext(authContext);
+  const [auth, loading, clearAuth] = useAuth();
   const {name, img2} = auth;
 
 
-  const handleAuthClick = (e) => {
+  /*  const handleAuthClick = (e) => {
     dispatch(updateToken(token));
-  };
+  }; */
 
   const handleClick = (e) => {
-    dispatch(deleteToken(''));
+    dispatch(deleteToken());
+    clearAuth();
   };
 
   const img =
   <Text As='a'
-    className={style.authLink} href={urlAuth} onClick={handleAuthClick}>
+    className={style.authLink} href={urlAuth} >
     <LoginIcon className={style.svg} width={128} height={128}/>
   </Text>;
 
   return (
     <div className={style.container}>
-      {name ? (
+      {loading ? (
+        <AuthLoader/>
+      ) : name ? (
         <div>
           <button
             className={style.btn}

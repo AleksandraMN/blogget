@@ -1,32 +1,41 @@
 
-import {useContext} from 'react';
 import style from './List.module.css';
 import Post from './Post';
 import PropTypes from 'prop-types';
-import {postsContext} from '../../../context/postsContext';
-// import {usePostData} from '../../../hocks/useGetPosts';
+import {usePostData} from '../../../hocks/useGetPosts';
+import AuthLoader from '../../../UI/AuthLoader';
 
 
 export const List = () => {
-  const getPosts = useContext(postsContext);
-  // const getPosts = usePostData();
+  const [postsData, loading, error] = usePostData();
+  // console.log('postsData: ', postsData);
+  // console.log('error: ', error);
+  // console.log('loading: ', loading);
+
   return (
     <ul className={style.list}>
-      {getPosts.map(({data}) => (
+      {loading ? (
+        <AuthLoader />
+      ) : error ? error : (Array.from(postsData).map(({data}) => (
         <Post key={data.id}
           postsData={data} />
-      ))}
+      )))}
     </ul>
   );
 };
 
 List.propTypes = {
-  getPosts: PropTypes.oneOfType([
+  postsData: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
   ]),
   data: PropTypes.object,
   id: PropTypes.number,
+  map: PropTypes.func,
+  posts: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
 };
 
 /* Образец:
