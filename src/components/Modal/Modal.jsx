@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import style from './Modal.module.css';
 import {ReactComponent as CloseIcon} from './img/close.svg';
 import PropTypes from 'prop-types';
-// import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useCommentsData} from '../../hocks/useCommentsData';
 import Comments from './Comments';
@@ -10,9 +10,12 @@ import FormComment from './FormComment';
 import AuthorRating from '../Main/List/Post/AuthorRating';
 import TimePost from '../Main/List/Post/TimePost';
 import AuthLoader from '../../UI/AuthLoader';
+import {useNavigate, useParams} from 'react-router-dom';
 
 
-export const Modal = ({id, closeModal}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const [commentsData, loading, error] = useCommentsData(id);
   const [status, setStatus] = useState('');
   const [post, comments] = commentsData;
@@ -37,7 +40,8 @@ export const Modal = ({id, closeModal}) => {
   const handlerClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
-      closeModal();
+      // closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
@@ -50,7 +54,8 @@ export const Modal = ({id, closeModal}) => {
 
   const handlerKeyup = (e) => {
     if (e.key === 'Escape') {
-      closeModal();
+      // closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
@@ -72,6 +77,19 @@ export const Modal = ({id, closeModal}) => {
             <h2 className={style.title}>
               {post.title}
             </h2>
+            <div>
+              <Markdown options={{
+                overrides: {
+                  a: {
+                    props: {
+                      target: '_blank',
+                    },
+                  },
+                },
+              }}>
+                {post.selftext}
+              </Markdown>
+            </div>
             <p className={style.author}>
               {post.author}
             </p>
@@ -82,7 +100,8 @@ export const Modal = ({id, closeModal}) => {
           </>
         )}
 
-        <button className={style.close} onClick={closeModal}>
+        <button className={style.close}
+          onClick={() => navigate(`/category/${page}`)}>
           <CloseIcon />
         </button>
       </div>

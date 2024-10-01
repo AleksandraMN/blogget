@@ -10,6 +10,7 @@ export const debounceRaf = (fn) => {
     });
   };
 };
+
 /*
 function debounce(func, ms) {
   let timeout;

@@ -10,7 +10,7 @@ export const Comments = ({comments}) => {
   if (comments) {
     return (
       <ul className={style.list}>
-        {comments.map((data) => (
+        {comments.map((data) => data.body && (
           <li key={data.id} className={style.item}>
             <Text As='h3'
               className={style.author} size={18} tsize={22}>{data.author}</Text>
