@@ -15,5 +15,6 @@ export const getToken = () => {
     setToken(localStorage.getItem('bearer'));
   }
 
+
   return token;
 };

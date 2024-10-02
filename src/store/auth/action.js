@@ -1,6 +1,6 @@
 
 import {URL_API} from '../../api/const';
-import {deleteToken} from '../tokenReducer';
+// import {deleteToken} from '../tokenReducer';
 import axios from 'axios';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
@@ -44,7 +44,7 @@ export const authRequestAsync = () => (dispatch, getState) => {
     })
     .catch((err) => {
       console.error(err);
-      dispatch(deleteToken());
+      // dispatch(deleteToken());
       dispatch(authRequestError(err.toString()));
     });
 };

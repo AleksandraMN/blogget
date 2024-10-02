@@ -16,6 +16,7 @@ export const postsRequestSuccess = (posts) => ({
   data: posts.children,
   after: posts.after,
 });
+
 export const postsRequestSuccessAfter = (posts) => ({
   type: POSTS_REQUEST_SUCCESS_AFTER,
   data: posts.children,
@@ -34,17 +35,14 @@ export const changePage = (page) => ({
 
 export const postsRequestAsync = (newPage) => (dispatch, getState) => {
   let page = getState().posts.page;
-
   if (newPage) {
     page = newPage;
     dispatch(changePage(page));
   }
-
   const token = getState().token.token;
-  const after = getState().posts.after;
   const loading = getState().posts.loading;
+  const after = getState().posts.after;
   const isLast = getState().posts.isLast;
-
 
   if (!token || loading || isLast) return;
 
@@ -55,11 +53,10 @@ export const postsRequestAsync = (newPage) => (dispatch, getState) => {
     },
   })
     .then((response) => {
-      // console.log(response);
       // console.log('response.status:', response.status);
       const {data: {data}} = response;
       const postsData = data;
-      // console.log('postsData: ', postsData);
+
       if (after) {
         dispatch(postsRequestSuccessAfter(postsData));
       } else {

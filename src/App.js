@@ -1,16 +1,23 @@
 import Header from './components/Header';
 import Main from './components/Main';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {updateToken} from './store/tokenReducer';
 import {getToken} from './api/token';
 import {Routes, Route} from 'react-router-dom';
+import {useEffect} from 'react';
 // import {store} from './store';
 
 
 const App = () => {
   const dispatch = useDispatch();
+  const token = useSelector(state => state.token.token);
+  // console.log(token);
 
-  dispatch(updateToken(getToken()));
+  useEffect(() => {
+    if (!token) {
+      dispatch(updateToken(getToken()));
+    }
+  }, [token]);
 
   return (
     <Routes>
