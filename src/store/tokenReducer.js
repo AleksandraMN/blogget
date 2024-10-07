@@ -1,7 +1,7 @@
-import {setToken} from '../api/token';
+// import {setToken} from '../api/token';
 
 const initialState = {
-  token: localStorage.getItem('bearer'),
+  token: '', /* localStorage.getItem('bearer'), */
 };
 
 const UPDATE_TOKEN = 'UPDATE_TOKEN';
@@ -19,12 +19,16 @@ export const deleteToken = () => ({
 
 export const tokenMiddleware = store => next => (action) => {
   if (action.type === UPDATE_TOKEN) {
-    if (action.token !== '') {
+    /* if (action.token !== '') {
       setToken(action.token);
+    } */
+    if (action.token) {
+      localStorage.setItem('bearer', action.token);
     }
   }
   if (action.type === DELETE_TOKEN) {
-    setToken(action.token);
+    /* setToken(action.token); */
+    localStorage.removeItem('bearer');
   }
   next(action);
 };
@@ -32,16 +36,16 @@ export const tokenMiddleware = store => next => (action) => {
 export const tokenReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_TOKEN:
-      if (action.token !== '') {
+      /* if (action.token !== '') {
         setToken(action.token);
-      }
+      } */
       return {
         ...state,
         token: action.token,
       };
 
     case DELETE_TOKEN:
-      setToken('');
+      /* setToken(''); */
       return {
         ...state,
         token: '',

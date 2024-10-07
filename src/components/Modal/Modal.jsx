@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import style from './Modal.module.css';
 import {ReactComponent as CloseIcon} from './img/close.svg';
 import PropTypes from 'prop-types';
@@ -16,25 +16,9 @@ import {useNavigate, useParams} from 'react-router-dom';
 export const Modal = () => {
   const {id, page} = useParams();
   const navigate = useNavigate();
-  const [commentsData, loading, error] = useCommentsData(id);
-  const [status, setStatus] = useState('');
-  const [post, comments] = commentsData;
+  const [post, comments, status] = useCommentsData(id);
   const overlayRef = useRef(null);
-
-  // console.log('loading: ', loading);
-  // console.log('commentsData: ', commentsData);
-
-  useEffect(() => {
-    if (loading === true) {
-      setStatus('loading');
-    }
-    if (error !== '') {
-      setStatus('error');
-    }
-    if (post) {
-      setStatus('loaded');
-    }
-  }, [error, post, loading]);
+  const {title, selftext, author, ups, created} = post;
 
 
   const handlerClick = e => {
@@ -75,7 +59,7 @@ export const Modal = () => {
         {status === 'loaded' && (
           <>
             <h2 className={style.title}>
-              {post.title}
+              {title}
             </h2>
             <div>
               <Markdown options={{
@@ -87,14 +71,14 @@ export const Modal = () => {
                   },
                 },
               }}>
-                {post.selftext}
+                {selftext}
               </Markdown>
             </div>
             <p className={style.author}>
-              {post.author}
+              {author}
             </p>
-            <AuthorRating ups={post.ups} />
-            <TimePost date={post.created} />
+            <AuthorRating ups={ups} />
+            <TimePost date={created} />
             <FormComment/>
             <Comments comments={comments} />
           </>

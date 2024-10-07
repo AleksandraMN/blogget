@@ -1,4 +1,4 @@
-
+/*
 import {
   POSTS_REQUEST,
   POSTS_REQUEST_SUCCESS,
@@ -59,3 +59,4 @@ export const postsReducer = (state = initialState, action) => {
       return state;
   }
 };
+ */

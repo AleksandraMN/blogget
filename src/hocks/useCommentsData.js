@@ -5,17 +5,15 @@ import {
 } from '../store/postComments/postCommentsAction';
 
 export const useCommentsData = (id) => {
-  // console.log(id);
-  // const token = useSelector(state => state.token.token);
-  const commentsData = useSelector(state => state.postComments.data);
-  const loading = useSelector(state => state.postComments.loading);
-  const error = useSelector(state => state.postComments.error);
+  const post = useSelector(state => state.comments.data);
+  const comments = useSelector(state => state.comments.comments);
+  const status = useSelector(state => state.comments.status);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(postCommentsRequestAsync(id));
   }, [id]);
 
-  return [commentsData, loading, error];
+  return [post, comments, status];
 };
 

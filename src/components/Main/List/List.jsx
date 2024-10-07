@@ -1,36 +1,38 @@
-
 import style from './List.module.css';
 import Post from './Post';
 import PropTypes from 'prop-types';
-// import {usePostData} from '../../../hocks/useGetPosts';
 // import AuthLoader from '../../../UI/AuthLoader';
 import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {postsRequestAsync} from '../../../store/posts/postsAction';
 import {Outlet, useParams} from 'react-router-dom';
-
+import {changePostsPage, clearPosts}
+  from '../../../store/posts/postsSlice';
+import {postsRequestAsync} from '../../../store/posts/postsAction.js';
 
 export const List = () => {
-  // const [postsData, loading, error] = usePostData();
-  const postsData = useSelector(state => state.posts.data);
-  // const loading = useSelector(state => state.posts.loading);
-  // const error = useSelector(state => state.posts.error);
-  const endList = useRef(null);
+  // const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
   const {page} = useParams();
   // console.log('page: ', page);
-  // console.log('postsData: ', postsData);
-  // console.log('error: ', error);
-  // console.log('loading: ', loading);
+  const endList = useRef(null);
+  const posts = useSelector(state => state.posts.data);
+  const status = useSelector(state => state.posts.status);
+  // const after = useSelector(state => state.posts.after);
+  // console.log('posts: ', posts);
+  // console.log('status: ', status);
 
-  useEffect(() => { // первая загрузка
-    dispatch(postsRequestAsync(page));
+  useEffect(() => {
+    dispatch(clearPosts());
+    if (page) {
+      dispatch(changePostsPage(page));
+      dispatch(postsRequestAsync(page));
+    }
   }, [page]);
 
   useEffect(() => {
+    if (!endList.current) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        console.log('************');
         dispatch(postsRequestAsync());
       }
     }, {
@@ -43,17 +45,16 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current, postsData]);
+  }, [endList.current]);
 
   return (
     <>
       <ul className={style.list}>
-        { /* loading ? (
-          <AuthLoader />
-        ) :  */(postsData.map(({data}) => (
-            <Post key={data.id}
-              postsData={data} />
-          ))) }
+        {status === 'error' && 'ошибка'}
+        {posts?.map(({data}) => (
+          <Post key={data.id}
+            postsData={data} />))
+        }
         <li ref={endList} className={style.end}/>
       </ul>
       <Outlet />
@@ -90,3 +91,4 @@ const postsData = [
       id: '135',
     },
   ]; */
+

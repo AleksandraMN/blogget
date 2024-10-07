@@ -1,4 +1,4 @@
-
+/*
 import {
   POSTCOMMENTS_REQUEST,
   POSTCOMMENTS_REQUEST_SUCCESS,
@@ -39,3 +39,4 @@ export const postCommentsReducer = (state = initialState, action) => {
       return state;
   }
 };
+ */
