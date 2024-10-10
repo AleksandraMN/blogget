@@ -15,14 +15,14 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    changePostsPage: (state, action) => { // редукторы
+    changePostsPage: (state, action) => {
       if (state.postsPage === action.payload) return;
       state.after = '';
       state.isLast = false;
       state.postsPage = action.payload.newPage;
       state.status = '';
     },
-    clearPosts: (state) => { // удаление постов
+    clearPosts: (state) => {
       state.loading = false;
       state.data = [];
       state.error = '';
@@ -32,7 +32,7 @@ export const postsSlice = createSlice({
       state.status = '';
     },
   },
-  extraReducers: (builder) => { // редукторы условий
+  extraReducers: (builder) => {
     builder
       .addCase(postsRequestAsync.pending, (state) => {
         state.loading = true;
@@ -40,7 +40,6 @@ export const postsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(postsRequestAsync.fulfilled, (state, action) => {
-        // console.log('action: ', action);
         state.loading = false;
         state.data = action.payload.data;
         state.after = action.payload.after;

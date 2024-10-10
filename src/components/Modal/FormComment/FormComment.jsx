@@ -4,7 +4,7 @@ import {Text} from '../../../UI/Text';
 // import {authContext} from '../../../context/authContext';
 // import {commentContext} from '../../../context/commentContext';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateComment} from '../../../store/commentReducer';
+import {updateComment} from '../../../store/comment/commentReducer';
 import {useAuth} from '../../../hocks/useAuth';
 
 export const FormComment = () => {

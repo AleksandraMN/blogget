@@ -1,10 +1,11 @@
 import Header from './components/Header';
 import Main from './components/Main';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateToken} from './store/tokenReducer';
+import {updateToken} from './store/token/tokenReducer';
 import {getToken} from './api/token';
 import {Routes, Route} from 'react-router-dom';
 import {useEffect} from 'react';
+
 // import {store} from './store';
 
 

@@ -10,7 +10,6 @@ import {changePostsPage, clearPosts}
 import {postsRequestAsync} from '../../../store/posts/postsAction.js';
 
 export const List = () => {
-  // const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
   const {page} = useParams();
   // console.log('page: ', page);

@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {deleteToken} from '../../../store/tokenReducer.js';
+import {deleteToken} from '../../../store/token/tokenReducer.js';
 import {useDispatch} from 'react-redux';
 import {useAuth} from '../../../hocks/useAuth.js';
 import AuthLoader from '../../../UI/AuthLoader';
 import {useNavigate} from 'react-router-dom';
+import {clearPosts} from '../../../store/posts/postsSlice.js';
 
 
 export const Auth = () => {
@@ -32,6 +33,7 @@ export const Auth = () => {
   const handleClick = (e) => {
     dispatch(deleteToken());
     clearAuth();
+    dispatch(clearPosts());
   };
 
   const img =

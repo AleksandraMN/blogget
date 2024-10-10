@@ -27,7 +27,6 @@ export const postsRequestAsync = createAsyncThunk(
           Authorization: `bearer ${token}`,
         },
       }).then(({data}) => {
-      // if (!data || !data.data) return;
       after = data.data.after;
       let posts = data.data.children;
       posts = [...prevData, ...posts];
