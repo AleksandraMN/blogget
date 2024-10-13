@@ -2,16 +2,26 @@ import React, {useState} from 'react';
 import style from './Search.module.css';
 import {ReactComponent as SearchIcon} from './img/search.svg';
 import {useDispatch} from 'react-redux';
-import {searchRequest} from '../../../store/search/searchAction';
+import {searchInfo,
+  searchClearPosts} from '../../../store/search/searchAction';
+import {useNavigate} from 'react-router-dom';
+import {clearPosts} from '../../../store/posts/postsSlice';
+
 
 export const Search = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
-  // const token = useSelector(state => state.token.token);
+  const navigate = useNavigate();
 
   const handlerSubmit = e => {
     e.preventDefault();
-    dispatch(searchRequest({/* token,  */search}));
+    if (search) {
+      // console.log('search: ', search);
+      dispatch(clearPosts());
+      dispatch(searchClearPosts());
+      dispatch(searchInfo({search}));
+      navigate(`/${search}`);
+    }
   };
 
   return (

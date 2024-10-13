@@ -14,18 +14,31 @@ import {useNavigate, useParams} from 'react-router-dom';
 
 
 export const Modal = () => {
-  const {id, page} = useParams();
+  const {id, page, search} = useParams();
   const navigate = useNavigate();
   const [post, comments, status] = useCommentsData(id);
   const overlayRef = useRef(null);
   const {title, selftext, author, ups, created} = post;
 
+  const handleCloseClick = (e) => {
+    if (page) {
+      navigate(`/category/${page}`);
+    }
+    if (search) {
+      navigate(`/${search}`);
+    }
+  };
 
   const handlerClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
       // closeModal();
-      navigate(`/category/${page}`);
+      if (page) {
+        navigate(`/category/${page}`);
+      }
+      if (search) {
+        navigate(`/${search}`);
+      }
     }
   };
 
@@ -39,7 +52,12 @@ export const Modal = () => {
   const handlerKeyup = (e) => {
     if (e.key === 'Escape') {
       // closeModal();
-      navigate(`/category/${page}`);
+      if (page) {
+        navigate(`/category/${page}`);
+      }
+      if (search) {
+        navigate(`/${search}`);
+      }
     }
   };
 
@@ -85,7 +103,7 @@ export const Modal = () => {
         )}
 
         <button className={style.close}
-          onClick={() => navigate(`/category/${page}`)}>
+          onClick={() => handleCloseClick()}>
           <CloseIcon />
         </button>
       </div>

@@ -12,12 +12,19 @@ export const Main = () => (
     <Layout >
       <Tabs />
       <Routes>
-        <Route path='/category/:page' element={<List />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/category/:page'
+          element={<List />}>  {/* <= не знаю правильно ли  это ? */}
           <Route path='post/:id' element={
             <Modal />
           } />
         </Route>
-        <Route path='/' element={<Home />} />
+        <Route path='/:search'
+          element={<List />} > {/* <= не знаю правильно ли  это ? */}
+          <Route path='post/:id' element={
+            <Modal />
+          } />
+        </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Layout>

@@ -18,7 +18,8 @@ export const postsRequestAsync = createAsyncThunk(
     /*  const loading = getState().posts.loading; */
     const prevData = getState().posts.data;
 
-    if (!token || isLast || !page) return {data: prevData, after, page};
+    if (!token || isLast || !page ||
+       page === undefined) return {data: prevData, after, page};
 
 
     return axios(

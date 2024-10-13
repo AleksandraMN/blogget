@@ -5,26 +5,27 @@ import PropTypes from 'prop-types';
 import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Outlet, useParams} from 'react-router-dom';
-import {changePostsPage, clearPosts}
+import {/* changePostsPage,  */clearPosts}
   from '../../../store/posts/postsSlice';
 import {postsRequestAsync} from '../../../store/posts/postsAction.js';
+import {
+  searchClearPosts,
+  searchRequest} from '../../../store/search/searchAction.js';
+
 
 export const List = () => {
   const dispatch = useDispatch();
-  const {page} = useParams();
-  // console.log('page: ', page);
+  const {page, search} = useParams();
   const endList = useRef(null);
   const posts = useSelector(state => state.posts.data);
+  const postsSearch = useSelector(state => state.search.posts);
+  // console.log('postsSearch: ', postsSearch);
   const status = useSelector(state => state.posts.status);
-  // const after = useSelector(state => state.posts.after);
-  // console.log('posts: ', posts);
-  // console.log('status: ', status);
 
   useEffect(() => {
-    dispatch(clearPosts());
     if (page) {
-      dispatch(changePostsPage(page));
-      dispatch(postsRequestAsync(page));
+      dispatch(searchClearPosts());
+      dispatch(clearPosts());
     }
   }, [page]);
 
@@ -32,10 +33,15 @@ export const List = () => {
     if (!endList.current) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsRequestAsync());
+        if (page) {
+          dispatch(postsRequestAsync(page));
+        }
+        if (search) {
+          dispatch(searchRequest(search));
+        }
       }
     }, {
-      rootMargin: '200px',
+      rootMargin: '100px',
     });
     observer.observe(endList.current);
 
@@ -44,16 +50,22 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, [endList.current, page, search]);
 
   return (
     <>
       <ul className={style.list}>
         {status === 'error' && 'ошибка'}
+
         {posts?.map(({data}) => (
+          <Post key={data.id}
+            postsData={data} />))}
+
+        {postsSearch?.map(({data}) => (
           <Post key={data.id}
             postsData={data} />))
         }
+
         <li ref={endList} className={style.end}/>
       </ul>
       <Outlet />

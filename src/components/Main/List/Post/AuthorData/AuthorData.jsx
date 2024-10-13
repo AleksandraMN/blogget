@@ -8,13 +8,14 @@ import {Link, useParams} from 'react-router-dom';
 export const AuthorData = ({title, author, markdown, id}) => {
   const idPost = id;
   // const [isModalOpen, setIsModalOpen] = useState(false);
-  const {page} = useParams();
+  const {page, search} = useParams();
 
   return (
     <div className={style.content}>
       <Text As='h2' className={style.title}>
         <Link className={style.linkPost}
-          to={`/category/${page}/post/${idPost}`} >
+          to={`/${page ? page : search}/post/${idPost}`
+          } >
           <Text
             // bold='bold'
             size={14}
