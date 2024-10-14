@@ -9,5 +9,3 @@ export const Home = () => (
     <Text As='h5'center>Выберите страницу</Text>
   </div>
 );
-
-

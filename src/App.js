@@ -6,13 +6,9 @@ import {getToken} from './api/token';
 import {Routes, Route} from 'react-router-dom';
 import {useEffect} from 'react';
 
-// import {store} from './store';
-
-
 const App = () => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.token.token);
-  // console.log(token);
 
   useEffect(() => {
     if (!token) {
@@ -34,14 +30,3 @@ const App = () => {
 };
 
 export default App;
-
-/*
-const time = () => dispatch => {
-  dispatch({type: 'START'});
-
-  setTimeout(() => {
-    dispatch({type: 'END'});
-  }, 3000);
-};
-store.dispatch(time());
- */

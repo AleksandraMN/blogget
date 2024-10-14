@@ -16,12 +16,10 @@ export const searchRequestSuccess = ({children, after}) => ({
   after,
 });
 
-
 export const searchRequestError = ({error}) => ({
   type: SEARCH_REQUEST_ERROR,
   error,
 });
-
 
 export const searchClearPosts = () => ({
   type: SEARCH_CLEAR_POSTS,

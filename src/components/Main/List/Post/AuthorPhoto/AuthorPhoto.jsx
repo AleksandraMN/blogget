@@ -18,7 +18,6 @@ export const AuthorPhoto = ({thumbnail}) => {
   );
 };
 
-
 AuthorPhoto.propTypes = {
   thumbnail: PropTypes.string,
   src: PropTypes.string,

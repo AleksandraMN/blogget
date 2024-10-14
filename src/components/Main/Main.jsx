@@ -13,14 +13,12 @@ export const Main = () => (
       <Tabs />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/category/:page'
-          element={<List />}>  {/* <= не знаю правильно ли  это ? */}
+        <Route path='/category/:page' element={<List />}>
           <Route path='post/:id' element={
             <Modal />
           } />
         </Route>
-        <Route path='/search/:search'
-          element={<List />} > {/* <= не знаю правильно ли  это ? */}
+        <Route path='/search/:search' element={<List />}>
           <Route path='post/:id' element={
             <Modal />
           } />

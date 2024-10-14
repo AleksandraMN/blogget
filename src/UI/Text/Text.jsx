@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import style from './Text.module.css';
 import PropTypes from 'prop-types';
 
-
 export const Text = prop => {
   const {
     As = 'span',

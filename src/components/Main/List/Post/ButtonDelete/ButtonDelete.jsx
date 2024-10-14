@@ -7,5 +7,3 @@ export const ButtonDelete = () => (
     <Svg DeleteIcon width={24} height={24}/>
   </button>
 );
-
-

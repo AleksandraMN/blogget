@@ -16,4 +16,3 @@ export const useCommentsData = (id) => {
 
   return [post, comments, status];
 };
-

@@ -1,17 +1,14 @@
 import style from './List.module.css';
 import Post from './Post';
 import PropTypes from 'prop-types';
-// import AuthLoader from '../../../UI/AuthLoader';
 import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Outlet, useParams} from 'react-router-dom';
-import {/* changePostsPage,  */clearPosts}
-  from '../../../store/posts/postsSlice';
+import {clearPosts} from '../../../store/posts/postsSlice';
 import {postsRequestAsync} from '../../../store/posts/postsAction.js';
 import {
   searchClearPosts,
   searchRequest} from '../../../store/search/searchAction.js';
-
 
 export const List = () => {
   const dispatch = useDispatch();
@@ -19,7 +16,6 @@ export const List = () => {
   const endList = useRef(null);
   const posts = useSelector(state => state.posts.data);
   const postsSearch = useSelector(state => state.search.posts);
-  // console.log('postsSearch: ', postsSearch);
   const status = useSelector(state => state.posts.status);
 
   useEffect(() => {
@@ -82,24 +78,3 @@ List.propTypes = {
   id: PropTypes.number,
   map: PropTypes.func,
 };
-
-/* Образец:
-const postsData = [
-    {
-      thumbnail: '',
-      title: 'Title1',
-      author: 'Nickname1',
-      ups: 75,
-      date: '2024-09-04T14:36:00.000Z',
-      id: '56',
-    },
-    {
-      thumbnail: '',
-      title: 'Title2',
-      author: 'Nickname2',
-      ups: 30,
-      date: '2024-09-05T18:10:00.000Z',
-      id: '135',
-    },
-  ]; */
-

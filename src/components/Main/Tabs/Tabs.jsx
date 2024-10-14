@@ -11,7 +11,6 @@ import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {debounceRaf} from '../../../utils/debounce';
 import {useNavigate} from 'react-router-dom';
-// import {usePostData} from '../../../hocks/useGetPosts';
 
 const LIST = [
   {value: 'Главная', Icon: HomeIcon, link: 'rising'},
@@ -25,8 +24,6 @@ export const Tabs = () => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [nameMenu, setNameMenu] = useState('Главная');
   const navigate = useNavigate();
-  // const getPosts = usePostData(nameMenu);
-  // console.log(`getPostsInTabs`, getPosts);
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -44,7 +41,6 @@ export const Tabs = () => {
       window.removeEventListener('resize', debounceResize);
     };
   }, []);
-
 
   return (
     <Text As='div' className={style.container}>

@@ -13,9 +13,8 @@ import AuthLoader from '../../UI/AuthLoader';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-
 export const Modal = () => {
-  const {id/* , page, search */} = useParams();
+  const {id} = useParams();
   const postsPage = useSelector(state => state.posts.postsPage);
   const search = useSelector(state => state.search.search);
   const navigate = useNavigate();
@@ -35,7 +34,6 @@ export const Modal = () => {
   const handlerClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
-      // closeModal();
       if (postsPage) {
         navigate(`/category/${postsPage}`);
       }
@@ -54,7 +52,6 @@ export const Modal = () => {
 
   const handlerKeyup = (e) => {
     if (e.key === 'Escape') {
-      // closeModal();
       if (postsPage) {
         navigate(`/category/${postsPage}`);
       }
@@ -70,7 +67,6 @@ export const Modal = () => {
       document.removeEventListener('keyup', handlerKeyup);
     };
   }, []);
-
 
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
@@ -123,4 +119,3 @@ Modal.propTypes = {
   comments: PropTypes.object,
   post: PropTypes.object,
 };
-

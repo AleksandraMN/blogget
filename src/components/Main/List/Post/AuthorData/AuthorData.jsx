@@ -2,12 +2,10 @@ import React from 'react';
 import style from './AuthorData.module.css';
 import PropTypes from 'prop-types';
 import {Text} from '../../../../../UI/Text';
-// import Modal from '../../../../Modal';
 import {Link, useParams} from 'react-router-dom';
 
 export const AuthorData = ({title, author, markdown, id}) => {
   const idPost = id;
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const {page, search} = useParams();
 
   return (

@@ -11,7 +11,6 @@ export const useAuth = (state) => {
   const loading = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(authRequestAsync());
   }, [token]);

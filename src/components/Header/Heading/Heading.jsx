@@ -18,4 +18,3 @@ export const Heading = (props) => (
 Heading.propTypes = {
   text: PropTypes.string,
 };
-

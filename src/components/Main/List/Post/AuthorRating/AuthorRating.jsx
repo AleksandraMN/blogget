@@ -13,7 +13,6 @@ export const AuthorRating = (props) => (
   </Text>
 );
 
-
 AuthorRating.propTypes = {
   ups: PropTypes.number,
   ar: PropTypes.string,

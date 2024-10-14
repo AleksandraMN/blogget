@@ -5,17 +5,16 @@ import axios from 'axios';
 export const postsRequestAsync = createAsyncThunk(
   'posts/fetch',
   (newPage, {getState}) => {
-    // console.log('newPage: ', newPage);
     const token = getState().token.token;
 
     let page = getState().posts.postsPage;
-    // console.log('page: ', page);
+
     if (newPage) {
       page = newPage;
     }
     const isLast = getState().posts.isLast;
     let after = getState().posts.after;
-    /*  const loading = getState().posts.loading; */
+
     const prevData = getState().posts.data;
 
     if (!token || isLast || !page ||

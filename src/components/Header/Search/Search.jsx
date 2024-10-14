@@ -16,7 +16,6 @@ export const Search = () => {
   const handlerSubmit = e => {
     e.preventDefault();
     if (search) {
-      // console.log('search: ', search);
       dispatch(clearPosts());
       dispatch(searchClearPosts());
       dispatch(searchInfo({search}));

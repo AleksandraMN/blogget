@@ -18,10 +18,6 @@ export const Post = ({postsData}) => {
     id,
   } = postsData;
 
-  // console.log({postsData});
-  // mconsole.log('title, author, ups, date, thumbnail, markdown, id: ',
-  //  title, author, ups, date, thumbnail, markdown, id);
-
   return (
     <li className={style.post}>
 

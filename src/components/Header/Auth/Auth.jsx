@@ -11,7 +11,6 @@ import AuthLoader from '../../../UI/AuthLoader';
 import {useNavigate} from 'react-router-dom';
 import {clearPosts} from '../../../store/posts/postsSlice.js';
 
-
 export const Auth = () => {
   const dispatch = useDispatch();
   const [openButton, setOpenButton] = useState(false);
@@ -24,11 +23,6 @@ export const Auth = () => {
       navigate('/');
     }
   }, [name]);
-
-
-  /*  const handleAuthClick = (e) => {
-    dispatch(updateToken(token));
-  }; */
 
   const handleClick = (e) => {
     dispatch(deleteToken());

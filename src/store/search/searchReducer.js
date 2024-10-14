@@ -6,7 +6,6 @@ import {
   SEARCH_INFO,
 } from './searchAction';
 
-
 const initialState = {
   loading: false,
   posts: [],

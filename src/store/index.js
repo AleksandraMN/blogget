@@ -11,7 +11,6 @@ import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
-
 export const store = configureStore({
   reducer: {
     token: tokenReducer,
@@ -26,4 +25,3 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
-// console.log('store: ', store);
