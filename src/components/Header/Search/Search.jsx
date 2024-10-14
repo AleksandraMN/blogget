@@ -20,7 +20,8 @@ export const Search = () => {
       dispatch(clearPosts());
       dispatch(searchClearPosts());
       dispatch(searchInfo({search}));
-      navigate(`/${search}`);
+      navigate(`/search/${search}`);
+      setSearch('');
     }
   };
 

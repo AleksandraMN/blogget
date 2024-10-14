@@ -11,21 +11,24 @@ import AuthorRating from '../Main/List/Post/AuthorRating';
 import TimePost from '../Main/List/Post/TimePost';
 import AuthLoader from '../../UI/AuthLoader';
 import {useNavigate, useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 
 export const Modal = () => {
-  const {id, page, search} = useParams();
+  const {id/* , page, search */} = useParams();
+  const postsPage = useSelector(state => state.posts.postsPage);
+  const search = useSelector(state => state.search.search);
   const navigate = useNavigate();
   const [post, comments, status] = useCommentsData(id);
   const overlayRef = useRef(null);
   const {title, selftext, author, ups, created} = post;
 
   const handleCloseClick = (e) => {
-    if (page) {
-      navigate(`/category/${page}`);
+    if (postsPage) {
+      navigate(`/category/${postsPage}`);
     }
     if (search) {
-      navigate(`/${search}`);
+      navigate(`/search/${search}`);
     }
   };
 
@@ -33,11 +36,11 @@ export const Modal = () => {
     const target = e.target;
     if (target === overlayRef.current) {
       // closeModal();
-      if (page) {
-        navigate(`/category/${page}`);
+      if (postsPage) {
+        navigate(`/category/${postsPage}`);
       }
       if (search) {
-        navigate(`/${search}`);
+        navigate(`/search/${search}`);
       }
     }
   };
@@ -52,11 +55,11 @@ export const Modal = () => {
   const handlerKeyup = (e) => {
     if (e.key === 'Escape') {
       // closeModal();
-      if (page) {
-        navigate(`/category/${page}`);
+      if (postsPage) {
+        navigate(`/category/${postsPage}`);
       }
       if (search) {
-        navigate(`/${search}`);
+        navigate(`/search/${search}`);
       }
     }
   };

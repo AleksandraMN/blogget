@@ -14,7 +14,9 @@ export const AuthorData = ({title, author, markdown, id}) => {
     <div className={style.content}>
       <Text As='h2' className={style.title}>
         <Link className={style.linkPost}
-          to={`/${page ? page : search}/post/${idPost}`
+          to={
+            `/${page ? 'category' : 'search'}/${page ? page : search}/` +
+            `post/${idPost}`
           } >
           <Text
             // bold='bold'

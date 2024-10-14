@@ -19,7 +19,7 @@ export const Main = () => (
             <Modal />
           } />
         </Route>
-        <Route path='/:search'
+        <Route path='/search/:search'
           element={<List />} > {/* <= не знаю правильно ли  это ? */}
           <Route path='post/:id' element={
             <Modal />
